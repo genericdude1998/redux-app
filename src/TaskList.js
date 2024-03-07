@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
+import {getFilteredTasks} from './selectors';
 
 const mockTasks = [
     {
@@ -55,6 +56,11 @@ const Task = props => {
 
     return (
         <>
+        <input
+        onChange={(e) => dispatch({type: 'FILTER_TASKS', payload:{ searchTerm: e.target.value }})}
+        type="text"
+        placeholder="Search..."
+        />
         <div className="task­list"><div className="task­list­title">
         </div>
         {tasks.map(task => (
@@ -71,7 +77,8 @@ const Task = props => {
     }
 
 const mapToStateProps = (state) =>{
-    return state;
+    const tasks = getFilteredTasks(state);
+    return {...state, tasks};
   }
 
     export default connect(mapToStateProps)(TaskList)

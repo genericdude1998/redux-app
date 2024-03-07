@@ -7,6 +7,11 @@ import logger from './logger';
 
 
 function tasksReducer(state = {tasks: []}, action) {
+
+  if (action.type === 'FILTER_TASKS') {
+    return { ...state, searchTerm: action.payload.searchTerm };
+    }
+
   if(action.type === 'FETCH_TASKS_LOADING'){
     return {...state, loading: true};
   }
